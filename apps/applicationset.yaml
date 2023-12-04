@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: test
+          - list:
+              elements:
+              - appName: metrics-server
+                namespace: argocd
+              - appName: loki
+                namespace: argocd
+  template:
+    metadata:
+      name: "{{name}}-{{appName}}"
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: ".;.."
+    spec:
+      project: default
+      source:
+        path: "charts/{{appName}}"
+        repoURL: https://github.com/hwan001/custom-helm-charts.git
+        targetRevision: HEAD
+        helm:
+          releaseName: "{{appName}}"
+          valueFiles:
+          #- "values.yaml"
+          - "../../values/{{name}}/{{appName}}/values.yaml"
+      destination:
+        name: "{{name}}"
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        retry:
+          limit: 2
