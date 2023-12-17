@@ -1,0 +1,20 @@
+{
+    "repo":{
+        "metrics-server":"https://kubernetes-sigs.github.io/metrics-server/",
+        "open-telemetry":"https://open-telemetry.github.io/opentelemetry-helm-charts",
+        "grafana":"https://grafana.github.io/helm-charts",
+        "teleport":"https://charts.releases.teleport.dev",
+        "aws-observability":"https://aws-observability.github.io/aws-otel-helm-charts",
+        "prometheus-community":"https://prometheus-community.github.io/helm-charts",
+        "external-dns":"https://kubernetes-sigs.github.io/external-dns/",
+        "jetstack":"https://charts.jetstack.io"
+    },
+    "charts":{
+        "grafana":"grafana/grafana",
+        "loki":"grafana/loki",  
+        "opentelemetry-collector":"open-telemetry/opentelemetry-collector",
+        "prometheus":"prometheus-community/prometheus",
+        "metrics-server":"metrics-server/metrics-server",
+        "opentelemetry-demo":"open-telemetry/opentelemetry-demo"
+    }
+}
